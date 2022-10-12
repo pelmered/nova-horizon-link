@@ -26,6 +26,13 @@ class ToolServiceProvider extends ServiceProvider
         Nova::serving(function (ServingNova $event) {
             //
         });
+
+        Nova::router()
+            ->group(function ($router) {
+                $router->get('horizon-link', function ($request) {
+                    return inertia('HorizonLink');
+                });
+            });
     }
 
     /**

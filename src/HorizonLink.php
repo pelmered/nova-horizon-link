@@ -1,7 +1,9 @@
 <?php
-
 namespace Alexpgates\HorizonLink;
 
+use Illuminate\Http\Request;
+use Laravel\Nova\Menu\MenuItem;
+use Laravel\Nova\Menu\MenuSection;
 use Laravel\Nova\Nova;
 use Laravel\Nova\Tool;
 
@@ -19,12 +21,18 @@ class HorizonLink extends Tool
     }
 
     /**
-     * Build the view that renders the navigation links for the tool.
+     * Build the menu that renders the navigation links for the tool.
      *
-     * @return \Illuminate\View\View
+     * @param  \Illuminate\Http\Request $request
+     * @return mixed
      */
-    public function renderNavigation()
+    public function menu(Request $request): mixed
     {
-        return view('horizon-link::navigation');
+        $menu = MenuItem::externalLink('HorizonLink', route('horizon.index'))->openInNewTab();
+        $menu->component = 'menu-section';
+        return $menu;
+        return MenuSection::make('HorizonLink')
+            ->path('/horizon-link')
+            ->icon('currency-dollar');
     }
 }
